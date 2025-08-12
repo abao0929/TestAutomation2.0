@@ -4,8 +4,6 @@ from ..models import TestFlow
 
 class TestflowController:
 
-    
-
     def create_testflow(name: str, json_data: Any) -> TestFlow:
         tf = TestFlow(name=name, json=json_data)
         db.session.add(tf)

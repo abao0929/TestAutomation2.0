@@ -1,39 +1,26 @@
 from typing import Optional, Any, List
 from ..extensions import db
 from ..models import TestFlow
+import json
 
 class TestflowController:
 
-    def create_testflow(name: str, json_data: Any) -> TestFlow:
-        tf = TestFlow(name=name, json=json_data)
-        db.session.add(tf)
+    def __init__(self):
+        pass
+
+    def add_testflow(self, name, json_text) -> TestFlow:
+        try:
+            parsed = json.loads(json_text)
+            # 统一存储格式（压缩或美化均可，这里用压缩以节省空间）
+            json_text = json.dumps(parsed, ensure_ascii=False, separators=(",", ":"))
+        except json.JSONDecodeError as e:
+            raise ValueError(f"Invalid JSON: {e}")
+
+
+        new_testflow = TestFlow(name = name, json = json_text)
+        db.session.add(new_testflow)
         db.session.commit()
-        return tf
-
-    def list_testflows() -> List[TestFlow]:
-        return TestFlow.query.order_by(TestFlow.id.asc()).all()
-
-    def get_testflow(tf_id: int) -> Optional[TestFlow]:
-        return TestFlow.query.get(tf_id)
-
-    def get_testflow_by_name(name: str) -> Optional[TestFlow]:
-        return TestFlow.query.filter_by(name=name).first()
-
-    def update_testflow(tf_id: int, *, name: Optional[str] = None, json_data: Optional[Any] = None) -> Optional[TestFlow]:
-        tf = TestFlow.query.get(tf_id)
-        if not tf:
-            return None
-        if name is not None:
-            tf.name = name
-        if json_data is not None:
-            tf.json = json_data
-        db.session.commit()
-        return tf
-
-    def delete_testflow(tf_id: int) -> bool:
-        tf = TestFlow.query.get(tf_id)
-        if not tf:
-            return False
-        db.session.delete(tf)
-        db.session.commit()
-        return True
+        return new_testflow
+    
+    def list_testflow(self):
+        return TestFlow.query.all()

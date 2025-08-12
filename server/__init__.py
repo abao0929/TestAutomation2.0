@@ -18,5 +18,5 @@ def create_app():
 
     from .api import init_api
     init_api(app)
-
+    
     return app

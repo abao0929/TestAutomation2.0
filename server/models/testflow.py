@@ -8,7 +8,7 @@ class TestFlow(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(200), nullable=False, unique=True)  # 测试流程名称（可根据需要去掉 unique）
-    json = db.Column(db.Text, nullable=False)                         # 存 listener 生成的 JSON（对象/数组均可）
+    json = db.Column(JSON, nullable=False)                         # 存 listener 生成的 JSON（对象/数组均可）
 
     created_at = db.Column(db.DateTime, nullable=False, server_default=func.now())
     updated_at = db.Column(db.DateTime, nullable=False, server_default=func.now(), onupdate=func.now())

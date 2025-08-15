@@ -6,45 +6,27 @@ import './App.css'
 import React from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import TestflowLayout from "./pages/testflowLayout";
-
+import BaseLayout from "./pages/baseLayout";
+import TestflowList from "./pages/testflowlist"
+import TestflowDetail from "./pages/testflowDetail"
+import TestPage from "./pages/testpage"
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
-    // <>
-    //   <div>
-    //     <a href="https://vite.dev" target="_blank">
-    //       <img src={viteLogo} className="logo" alt="Vite logo" />
-    //     </a>
-    //     <a href="https://react.dev" target="_blank">
-    //       <img src={reactLogo} className="logo react" alt="React logo" />
-    //     </a>
-    //   </div>
-    //   <h1>Vite + React</h1>
-    //   <div className="card">
-    //     <button onClick={() => setCount((count) => count + 1)}>
-    //       count is {count}
-    //     </button>
-    //     <p>
-    //       Edit <code>src/App.jsx</code> and save to test HMR
-    //     </p>
-    //   </div>
-    //   <p className="read-the-docs">
-    //     Click on the Vite and React logos to learn more
-    //   </p>
-    // </>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<TestflowLayout />} >
+        <Route path="/" element={<BaseLayout />} >
+          <Route path="list" element={<TestflowList />}/>
+          <Route path="testflow/:id" element={<TestflowDetail />}/>
+          <Route path="testflow/new" element={<TestflowDetail />}/>
         </Route>
+        <Route path="/test" element={<TestPage />} />
       </Routes>
     </BrowserRouter>
-  )
+  );
 }
 
-const root = createRoot(document.getElementById("root"));
-root.render(<App />);
 
-export default App
+export default App;

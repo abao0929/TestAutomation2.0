@@ -24,10 +24,13 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
+  /* display: flex;
   place-items: center;
   min-width: 320px;
-  min-height: 100vh;
+  min-height: 100vh; */
+  overflow-y: auto;
+  height: 100%;
+  width: 100%;
 }
 
 h1 {
@@ -66,3 +69,8 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+/* html, body, #root {
+  height: 100%;
+  width: 100%;
+} */
